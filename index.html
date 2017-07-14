@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		td{
+			width:200px;
+		}
+		tr{
+			height:30px;
+		}
+		a,a:hover{
+			text-decoration: none;
+			color:#000;
+		}
+		.before{
+			display: inline-block;
+			padding:5px;
+			border:1px solid #ccc;
+			border-radius: 10px
+		}
+		.after{
+			display: inline-block;
+			padding:5px;
+			border:1px solid #ccc;
+			border-radius: 10px;
+			background:red;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.js"></script>
+</head>
+<body>
+	<div class="wrap" ng-controller="myCtrl">
+		<table>
+			<tr><td><h2>版本</h2></td></tr>
+			<tr class="version xia">
+				<td><a href="javascript:;" class="before">IPhone 6</a></td>
+				<td><a href="javascript:;" class="before">IPhone 6 plus</a></td>
+				<td><a href="javascript:;" class="before">IPhone 7</a></td>
+				
+			</tr>
+			<tr><td><h2>颜色</h2></td></tr>
+			<tr class="color xia">
+				<td><a href="javascript:;" class="before col">红色</a></td>
+				<td><a href="javascript:;" class="before col">黄色</a></td>
+				<td><a href="javascript:;" class="before col">绿色</a></td>
+				
+			</tr>
+			<tr><td><h2>容量</h2></td></tr>
+			<tr class="inter xia">
+				<td><a href="javascript:;" class="before int">10G</a></td>
+				<td><a href="javascript:;" class="before int">50G</a></td>
+				<td><a href="javascript:;" class="before int">128G</a></td>
+			</tr>
+		</table>
+		
+		<table class="tal1">
+			
+			
+		</table>
+		
+	</div>
+	
+	<script>
+			
+			window.onload=function(){
+				var arr={};//商品属性的键值对
+				var arr1={}
+				var before=document.getElementsByClassName("before");
+				var xia=document.getElementsByClassName("xia");//属性的种类数量
+
+				var v1=document.getElementsByClassName("version")[0]
+				var ver=v1.getElementsByTagName('a')//所有版本
+
+				var c1=document.getElementsByClassName("color")[0];
+				var col=c1.getElementsByTagName("a")//所有颜色
+
+				var i1=document.getElementsByClassName("inter")[0];
+				var int=i1.getElementsByTagName("a")//所有容量
+
+				for(var i=0;i<before.length;i++){
+					before[i].setAttribute("value","false")
+					// before[i].setAttribute("value1",false)
+				}
+
+
+				function ddd(){
+
+					var count=0;
+					for(var i in arr){
+						count++
+					}
+					// alert(count)
+				   var html=''
+					// alert($scope.arr.length)
+					var xia=document.getElementsByClassName("xia")
+					if(count==xia.length){
+						$(".tal1").empty()
+						html='<tr><td><h3>版本</h3></td><td><h3>颜色</h3></td><td><h3>容量</h3></td><td><h3>价格</h3></td></tr><tr class="mei"><td><h3 class="arr1_v">'+arr.version+'</h3></td><td><h3 class="arr1_c">'+arr.color+'</h3></td><td><h3 class="arr1_in">'+arr.inter+'</h3></td><td><input type="text" class="price" value=""/></td><td><button class="btn">提交</button></td></tr>'
+
+						$(".tal1").append(html)
+						$(".btn").click(function(){
+							if($(".price").val()){
+								arr1.version=$(".arr1_v").html()
+								arr1.color=$(".arr1_c").html()
+								arr1.inter=$(".arr1_in").html()
+								arr1.price=$(".price").val()
+								console.log(arr1)
+							}
+						})
+						
+					}else{
+						$(".tal1").empty()
+					}
+
+				}
+
+
+				//版本的选择
+				for(var i=0;i<ver.length;i++){
+					ver[i].onclick=function(){
+						var _this=this
+						if(this.getAttribute("value")=="false"){
+							_this.setAttribute("value","true")
+							for(var i=0;i<ver.length;i++){
+								ver[i].setAttribute("value","false");
+								ver[i].setAttribute("class","before")
+							}
+							_this.setAttribute("class","after")
+							_this.setAttribute("value","true")
+							arr.version=_this.innerHTML;
+							ddd()
+						}else{
+							_this.setAttribute("value","false")
+							_this.setAttribute("class","before")
+							delete arr.version
+							ddd()
+							
+						}
+							
+					}
+				}
+				//颜色的选择
+				for(var i=0;i<col.length;i++){
+					col[i].onclick=function(){
+						var _this=this
+						if(this.getAttribute("value")=="false"){
+							_this.setAttribute("value","true")
+							for(var i=0;i<col.length;i++){
+								col[i].setAttribute("value","false");
+								col[i].setAttribute("class","before")
+							}
+							_this.setAttribute("class","after")
+							_this.setAttribute("value","true")
+							arr.color=_this.innerHTML;
+							ddd()
+						}else{
+							_this.setAttribute("value","false")
+							_this.setAttribute("class","before")
+							delete arr.color
+							ddd()
+						}
+							
+					}
+				}
+				//容量的选择
+				for(var i=0;i<int.length;i++){
+					int[i].onclick=function(){
+						var _this=this
+						if(this.getAttribute("value")=="false"){
+							_this.setAttribute("value","true")
+							for(var i=0;i<int.length;i++){
+								int[i].setAttribute("value","false");
+								int[i].setAttribute("class","before")
+							}
+							_this.setAttribute("class","after")
+							_this.setAttribute("value","true")
+							arr.inter=_this.innerHTML;
+							ddd()
+						}else{
+							_this.setAttribute("value","false")
+							_this.setAttribute("class","before")
+							delete arr.inter
+							ddd()
+							
+						}
+							
+					}
+				}
+			}
+				
+	</script>
+</body>
+</html>
